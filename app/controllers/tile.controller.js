@@ -2,10 +2,7 @@ const db = require("../models");
 const Tile = db.tiles;
 const Op = db.Sequelize.Op;
 
-// Create and Save a new Tile
 exports.create = (req, res) => {
-  console.log('post something: ')
-  console.log(req.body)
   if (!req.body.tile_name) {
     res.status(400).send({
       message: "tile_name cannot be empty!"
@@ -25,11 +22,9 @@ exports.create = (req, res) => {
 
   Tile.create(tile)
     .then(data => {
-      console.log("HERE! ", tile)
       res.send(data)
     })
     .catch(err => {
-      
       res.status(500).send({
         message:
           err.message || "Error while creating tile"
@@ -37,7 +32,6 @@ exports.create = (req, res) => {
     })
 }
 
-// Retrieve all Tiles from the database.
 exports.findAll = (req, res) => {
   const title = req.query.title
   var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
@@ -53,10 +47,8 @@ exports.findAll = (req, res) => {
       });
 };
 
-// Find a single Tile with an id
 exports.findOne = (req, res) => {
   const id = req.params.id;
-
   Tile.findByPk(id)
     .then(data => {
       if (data) {
@@ -69,10 +61,8 @@ exports.findOne = (req, res) => {
     });
 };
 
-// Update a Tile by the id in the request
 exports.update = (req, res) => {
   const id = req.params.id;
-
   Tile.update(req.body, {
     where: { id: id}
   })
@@ -94,10 +84,8 @@ exports.update = (req, res) => {
     })
 };
 
-// Delete a Tile with the specified id in the request
 exports.delete = (req, res) => {
   const id = req.params.id;
-
   Tile.destroy({
     where: {id: id}
   })
@@ -119,7 +107,6 @@ exports.delete = (req, res) => {
     })
 };
 
-// Delete all Tiles from the database.
 exports.deleteAll = (req, res) => {
   Tile.destroy({
     where: {},
@@ -136,7 +123,6 @@ exports.deleteAll = (req, res) => {
   })
 };
 
-// Find all published Tiles
 exports.findAllPublic = (req, res) => {
   Tile.findAll ({ where: { public:true } })
     .then(data => {
