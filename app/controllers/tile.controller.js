@@ -25,9 +25,11 @@ exports.create = (req, res) => {
 
   Tile.create(tile)
     .then(data => {
+      console.log("HERE! ", tile)
       res.send(data)
     })
     .catch(err => {
+      
       res.status(500).send({
         message:
           err.message || "Error while creating tile"
