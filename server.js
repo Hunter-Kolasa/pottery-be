@@ -38,10 +38,12 @@ db.sequelize.sync().then(() => {
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to api backend" });
+  //
 });
+
 // This require statement needs to be after 'app.use(express.json())'
 require("./app/routes/tile.routes")(app);
+
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
