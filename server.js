@@ -33,9 +33,9 @@ app.use(express.urlencoded({ extended: true }))
 
 const db = require("./app/models");
 const Role = db.role;
-db.sequelize.sync({force: true}).then(() => {
-  console.log("Drop and re-sync db.");
-  initial();
+db.sequelize.sync().then(() => {
+  // console.log("Drop and re-sync db.");
+  // initial();
 });
 
 // This require statement needs to be after 'app.use(express.json())'
